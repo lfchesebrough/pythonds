@@ -1,9 +1,22 @@
+# coding: utf-8
+
+
+
+# 3rd function call generate and score, print best attempt so far,
+# See if you can improve upon the program in the self check by
+# keeping letters that are correct and only modifying one character
+# in the best string so far. This is a type of algorithm in the class of
+# ‘hill climbing’ algorithms, that is we only keep the result if it is better
+# than the previous one.
+
 import string
 import random
 
-def generate():
-    return ''.join(random.choice(string.ascii_lowercase + ' ') for i in range(28))
+# random string generator with alphabet letters and spaces
+def generate(N):
+    return ''.join(random.choice(string.ascii_lowercase + ' ') for i in range(N))
 
+# create a score comparing two strings, 1 point for every matched character in the same position
 def score(goal, attempt):
     score = 0
     for i in range(len(attempt)):
@@ -11,7 +24,8 @@ def score(goal, attempt):
             score += 1
     return score
 
-def attempt(target):
+# randomly generate a string until you randomly match a target string, keep track of best attempt
+def monkey(target):
     checkpoint, goal, bestattempt  = 0, target, generate()
     highscore = score(goal, bestattempt)
     while highscore < 15:
@@ -26,4 +40,19 @@ def attempt(target):
             checkpoint = 0
     return bestattempt
 
-print('methinks it is like a weasel')
+# match a target string by matching one character at a time
+def bettermonkey(target):
+    attempt = generate(28)
+    for i in range(len(target)):
+        targetletter = target[i]
+        attemptletter = attempt[i]
+        while targetletter != attemptletter:
+            newattempt = random.choice(string.ascii_lowercase + ' ')
+            if newattempt == targetletter:
+                attemptletter = newattempt
+                if i < len(target) - 1:
+                    attempt = attempt[:i] + newattempt + attempt[i+1:]
+                else:
+                    attempt = attempt[:i] + newattempt
+        print(attempt)
+    return attempt
