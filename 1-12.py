@@ -1,14 +1,5 @@
 # coding: utf-8
 
-
-
-# 3rd function call generate and score, print best attempt so far,
-# See if you can improve upon the program in the self check by
-# keeping letters that are correct and only modifying one character
-# in the best string so far. This is a type of algorithm in the class of
-# ‘hill climbing’ algorithms, that is we only keep the result if it is better
-# than the previous one.
-
 import string
 import random
 
